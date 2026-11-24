@@ -1,9 +1,13 @@
 ---
+import { getCollection } from 'astro:content';
+import Apple from '../components/Apple.astro';
 import '../styles/fonts.css';
 import '../styles/tokens.css';
 import '../styles/base.css';
 import '../styles/paintings.css';
+import '../styles/apple.css';
 import { isCurrent, rooms } from '../data/rooms';
+import { paintingHref, sortPaintings } from '../lib/paintings';
 
 interface Props {
 	title: string;
@@ -12,6 +16,9 @@ interface Props {
 
 const { title, description = "A museum of Adam Khalloufi's work." } = Astro.props;
 const pageTitle = title === 'Knowledge, compiled.' ? title : `${title} · Adam Khalloufi`;
+const paintings = sortPaintings(await getCollection('paintings')).map((painting) => paintingHref(painting));
+const here = Astro.url.pathname.length > 1 && Astro.url.pathname.endsWith('/') ? Astro.url.pathname.slice(0, -1) : Astro.url.pathname;
+const randomHref = paintings.find((href) => href !== here) ?? paintings[0] ?? '/works/systems';
 ---
 
 <!doctype html>
@@ -47,5 +54,6 @@ const pageTitle = title === 'Knowledge, compiled.' ? title : `${title} · Adam K
 		<main id="content" class="frame">
 			<slot />
 		</main>
+		<Apple paintings={paintings} randomHref={randomHref} />
 	</body>
 </html>

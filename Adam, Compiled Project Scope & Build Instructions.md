@@ -310,6 +310,7 @@ Timings assume part-time work alongside studies; adjust freely, but keep the ord
 | Stack: Astro static, TypeScript islands, plain CSS, Cloudflare Pages | Decided, 24 Nov 2026 |
 | Domain name | Open until M5 |
 | Launch paintings are the seven in section 10; 24H, Raspberry Cloud, and Astre stay off until Adam supplies public facts | Decided, 24 Nov 2026 |
+| Genesis intro | Deferred, 24 Nov 2026. The first drawing was removed. The intro returns when Adam asks. The apple (M3) is built without it. |
 
 ## 17. Immediate next steps
 

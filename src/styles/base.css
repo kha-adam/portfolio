@@ -36,8 +36,9 @@ body {
 }
 
 .frame {
-	width: min(72rem, calc(100% - 2 * var(--space)));
-	margin-inline: auto;
+	width: min(72rem, calc(100% - 2 * var(--space) - 4.5rem));
+	margin-left: auto;
+	margin-right: calc(var(--space) + 4.5rem);
 }
 
 .site-header {
@@ -94,7 +95,7 @@ nav a:focus-visible,
 }
 
 main {
-	padding-block: clamp(2.5rem, 8vw, 5.5rem) 4rem;
+	padding-block: clamp(2.5rem, 8vw, 5.5rem) 6.5rem;
 }
 
 .kicker {

@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+
+const swatches = [
+	{ name: '--bg', hex: '#0b0908', className: 'chip-bg' },
+	{ name: '--surface', hex: '#15110f', className: 'chip-surface' },
+	{ name: '--text', hex: '#e8dcc0', className: 'chip-text' },
+	{ name: '--gold', hex: '#d9c9a3', className: 'chip-gold' },
+	{ name: '--apple', hex: '#c8102e', className: 'chip-apple' },
+];
+---
+
+<Base title="Knowledge, compiled." description="Knowledge, compiled. A museum of Adam Khalloufi's work.">
+	<p class="kicker">Entrance hall</p>
+	<h1>Knowledge, compiled.</h1>
+	<p class="lede">The rooms are framed. The paintings come next.</p>
+	<ul class="swatches">
+		{
+			swatches.map((swatch) => (
+				<li>
+					<span class:list={['chip', swatch.className]}></span>
+					<p class="token">{swatch.name}</p>
+					<p class="hex">{swatch.hex}</p>
+				</li>
+			))
+		}
+	</ul>
+</Base>
+
+<style>
+	.chip-bg {
+		background: var(--bg);
+	}
+	.chip-surface {
+		background: var(--surface);
+	}
+	.chip-text {
+		background: var(--text);
+	}
+	.chip-gold {
+		background: var(--gold);
+	}
+	.chip-apple {
+		background: var(--apple);
+	}
+</style>

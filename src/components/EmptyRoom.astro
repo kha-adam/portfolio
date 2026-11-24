@@ -1,0 +1,12 @@
+---
+interface Props {
+	kicker: string;
+	title: string;
+}
+
+const { kicker, title } = Astro.props;
+---
+
+<p class="kicker">{kicker}</p>
+<h1>{title}</h1>
+<p class="lede">This room is not hung yet.</p>

@@ -1,0 +1,11 @@
+:root {
+	--bg: #0b0908;
+	--surface: #15110f;
+	--text: #e8dcc0;
+	--gold: #d9c9a3;
+	--apple: #c8102e;
+	--font-serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
+	--font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+	--measure: 38rem;
+	--space: clamp(1.25rem, 3vw, 2.5rem);
+}

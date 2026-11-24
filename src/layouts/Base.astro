@@ -1,0 +1,50 @@
+---
+import '../styles/fonts.css';
+import '../styles/tokens.css';
+import '../styles/base.css';
+import { isCurrent, rooms } from '../data/rooms';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "A museum of Adam Khalloufi's work." } = Astro.props;
+const pageTitle = title === 'Knowledge, compiled.' ? title : `${title} · Adam Khalloufi`;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content={description} />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<title>{pageTitle}</title>
+	</head>
+	<body>
+		<a class="skip" href="#content">Skip to content</a>
+		<header class="site-header">
+			<div class="frame">
+				<p class="brand"><a href="/">Knowledge, compiled.</a></p>
+				<nav aria-label="Museum">
+					<ul>
+						{
+							rooms.map((room) => (
+								<li>
+									<a href={room.href} aria-current={isCurrent(Astro.url.pathname, room.href) ? 'page' : undefined}>
+										{room.label}
+									</a>
+								</li>
+							))
+						}
+					</ul>
+				</nav>
+			</div>
+		</header>
+		<main id="content" class="frame">
+			<slot />
+		</main>
+	</body>
+</html>

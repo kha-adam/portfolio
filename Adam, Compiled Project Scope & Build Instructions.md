@@ -15,7 +15,7 @@ Build a personal portfolio website that is a **museum of Adam's work**: dark, wa
 
 **"The Creation of Adam, compiled."** The first Adam, the forbidden fruit, and the spark of creation, rebuilt as software. The painting's famous gap between two fingers is where code becomes a working thing. The red apple is the fruit of knowledge and the site's only saturated color.
 
-Brand line candidates (pick one at the visual-spec stage): *"I build things from first principles."* or *"Knowledge, compiled."*
+Brand line: **"Knowledge, compiled."** Tone: serious-elegant.
 
 ## 3. Goals and non-goals
 
@@ -52,7 +52,7 @@ Brand line candidates (pick one at the visual-spec stage): *"I build things from
 | Wing: ML | Gallery of paintings (flagship: C neural-network framework) | `/works/ml` |
 | Wing: Web apps | Gallery of paintings | `/works/web` |
 | Wing: Aerospace | Gallery of paintings (Astre Club flight software) | `/works/aerospace` |
-| Special exhibition | Hackathons strip (two so far; grows into a wing if needed) | `/hackathons` |
+| Wing: Hackathons | Gallery of paintings. Lead with NASA Space Apps (Project BLUE, 14–15 Nov 2026, team of 5). Second painting: AGIR (10 Oct 2026, one of 4 teams of 6, 10 hours). | `/works/hackathons` |
 | The Workshop | Skills and tools drawn as anatomical-style diagrams | `/workshop` |
 | The Journey | Timeline: INSA, Pole Star, 24H de Toulouse, Astre Club, HKU exchange | `/journey` |
 | Guestbook / contact | Email, GitHub, LinkedIn, résumé PDF | `/contact` |
@@ -89,10 +89,10 @@ Each requirement has an ID so we can track it.
 - **F-15.** The detail page shows: problem, one hard decision, result with a concrete metric when one exists, an inside-view diagram, links (repo, demo), and previous/next painting navigation.
 - **F-16.** Adding a project requires only adding one content file and, optionally, one diagram asset.
 
-### 6.4 Hackathons exhibition
+### 6.4 Hackathons wing
 
-- **F-17.** Each hackathon is a "limited run" entry: name, date, team size, challenge, what was built, outcome (placement or lesson).
-- **F-18.** Hackathon entries can link to a full painting page when a project deserves one.
+- **F-17.** Each hackathon is a painting in the Hackathons wing: name, date, team size, challenge, what was built, outcome (placement or lesson).
+- **F-18.** Every hackathon that has a problem, a decision, and a result gets a full painting page. The wing page is the gallery, same as the other wings.
 
 ### 6.5 Workshop, Journey, Contact
 
@@ -153,7 +153,7 @@ Every painting is one Markdown/MDX file with this front matter:
 ```yaml
 title: "CloudBox"
 slug: "cloudbox"
-wing: "systems"        # systems | ml | web | aerospace
+wing: "systems"        # systems | ml | web | aerospace | hackathons
 year: 2026
 status: "shipped"      # shipped | in-progress | prototype
 plaque: "FastAPI, PostgreSQL, Docker. Resumable uploads."
@@ -168,19 +168,30 @@ featured: true
 
 The body of the file is the optional long-form case study.
 
-## 10. Content inventory (what we need from Adam)
+## 10. Content inventory
 
-| Painting | Wing | Status | Needed from Adam |
-| --- | --- | --- | --- |
-| C neural-network framework | ML | In progress (flagship) | Name, scope so far (layers, autodiff, optimizers), one benchmark or accuracy result, repo link |
-| CloudBox | Systems | Shipped | Hard decision (resumable uploads design), one metric, repo link |
-| NetSentinel | Systems | Shipped | What it detects, one hard decision, repo link |
-| Raspberry Cloud | Systems | Shipped | Hardware setup, what it hosts, one lesson |
-| 24H de Toulouse platform | Web | Shipped | Scale (users or tickets handled), your role, one hard decision |
-| Astre Club flight software | Aerospace | In progress | Subsystem scope, launch plan, what you can say publicly |
-| Hackathon 1 | Hackathons | Done | Name, date, challenge, what was built, outcome |
-| Hackathon 2 | Hackathons | Done | Same as above |
-| Other GitHub projects | TBD | TBD | The repo list (GitHub could not be fetched during planning); we decide which earn a painting |
+Updated 24 Nov 2026 from [github.com/kha-adam](https://github.com/kha-adam) and from Adam. Nothing here invents a metric.
+
+**Launch set: 7 paintings.** Inside the 6-to-9 cap. Held projects stay off until they have a problem, a decision, and a result Adam is willing to publish.
+
+| Painting | Wing | Status | Plaque | Still open |
+| --- | --- | --- | --- | --- |
+| Neural net in C (`ml-nn`) | ML | In progress (flagship) | A C framework with no ML libraries. The work in progress is backpropagation and a fuller training stack. The code today is a single header: matrices, a sigmoid forward pass, and finite-difference gradients. | A benchmark once training is far enough to measure. The plaque names backpropagation as the direction, and it does not claim that path is finished. |
+| CloudBox | Systems | Shipped (backend) | FastAPI, PostgreSQL, Docker. Chunked uploads reserve quota up front; a cleanup worker releases expired sessions. **70 pytest tests** collected (67 functions; one security test is parametrized four ways). | No UI and no public demo. That is a limitation, not a missing fact. |
+| NetSentinel | Systems | Shipped | Scapy, Flask, SQLite, Docker. Port scan, SYN flood, and SSH brute-force detection, with a TCP state tracker and a separate SSH-log path. | Which detection rule you want named as the hard decision. |
+| Flight data logger | Aerospace | Shipped (simulation) | Linux character driver. `hrtimer` writes 24-byte samples into a 1024-slot ring that drops the newest when full. The userspace reader and writer are split so disk IO cannot stall the sensor. | The plaque must say this is the public telemetry driver, not the Astre Club balloon software. |
+| Langbook | Web | In progress | A PDF textbook reader. Notes and a gloss of the line you are stuck on stay on the page. FastAPI, PostgreSQL, Vite. Ink is stored in PDF coordinates; the viewer is a canvas, because putting every pointer move in React would redraw the page. OCR is Tesseract (`rus`); translation is LibreTranslate (`ru` → `en`). | None for the problem statement. The README is the source. |
+| Project BLUE (`nasa-health`) | Hackathons | Done | NASA Space Apps, 14–15 Nov 2026, team of 5. The more important of the two hackathons. FastAPI and Next.js. Crew see their own biometrics and a voice psychologist; the flight-surgeon view is physical data only. | Placement, if there was one. Otherwise the result is the privacy split: mental-health data never reaches the surgeon account. |
+| AGIR (`hackathon-gendarmerie`) | Hackathons | Prototype | 10 Oct 2026. One of 4 teams of 6, built in 10 hours. Leaflet and Vite. Fixed-fleet and minimum-fleet placement of drone operators. Demo case: 4 level-1 and 1 level-2 operators, 15-second limit, **79.47%** of one Toulouse polygon. | Whether 79.47% is the result quoted on the plaque. The repo UI is French; the painting stays English. |
+
+**Held off the launch grid**
+
+| Work | Why it waits |
+| --- | --- |
+| 24H de Toulouse platform | No public repo. Profile: Head Full Stack Developer, e-commerce and ticketing for the student event. Needs scale, the hard decision, and what you can show. |
+| Raspberry Cloud | Named on the profile. No public repo. Needs hardware, what it hosts, and one lesson. |
+| Astre Club flight software | Profile: flight-software sub-system lead, stratospheric balloon, from Oct 2026. Publish only what the club allows. Do not fold it into the telemetry-driver painting. |
+| `c-http-server`, `insa-dodge-the-blocks`, `ctgt-ai-consistency`, `lc-training` | Too thin, or coursework and experiments. They do not earn a painting. |
 
 **Rule:** 6 to 9 paintings maximum at launch. Fewer, deeper entries beat a long grid. Each painting must have a problem, a decision, and a result, or it stays off the site.
 
@@ -190,15 +201,21 @@ The body of the file is the optional long-form case study.
 
 | Layer | Choice | Reason |
 | --- | --- | --- |
-| Framework | **Astro** (static output) | Ships almost no JS by default, content collections fit the painting schema, great performance |
+| Framework | **Astro** (static output) | Decided. See the assessment under this table. |
 | Language | TypeScript for interactive parts | Safety for the apple menu and intro logic |
 | Styling | Plain CSS with custom properties (design tokens) | Full control, tiny footprint, easy theming |
 | Animation | CSS plus small vanilla JS; GSAP only if a sequence truly needs it | Keeps the JS budget |
 | Diagrams | Hand-authored SVG | Crisp, themeable, tiny |
-| Hosting | Cloudflare Pages, Vercel, or GitHub Pages | Free, fast, simple CI |
-| Domain | Custom domain (for example `adamkhalloufi.dev`) | Credibility; optional for v1 |
+| Hosting | Cloudflare Pages | Free static hosting, preview URLs per branch, simple GitHub CI |
+| Domain | Still open (for example `adamkhalloufi.dev`) | Credibility; optional until M5 |
 
-*Alternative:* plain HTML/CSS/JS with Vite if you prefer zero framework. The content schema and requirements stay identical.
+**Stack assessment (24 Nov 2026).** The constraints that pick the stack are: one Markdown file per painting with no route edits, initial JavaScript under 100 KB gzipped, the site still readable with JavaScript off, and interactive code only for the intro and the apple.
+
+Astro meets all four. Content collections validate the painting schema at build time. Pages ship HTML and CSS. The intro and the apple are islands, loaded after the document. A new painting is a new file in the collection.
+
+Vite with hand-written HTML can hit the same performance numbers, and it would mean maintaining a content loader and a route list by hand. That fights the "one file, no code changes" goal. Next.js or another React app would spend the JavaScript budget on the framework before the intro exists. GSAP stays out until the M2 storyboard proves CSS cannot do the reveal.
+
+What this choice lets us start now: the Astro skeleton, tokens, empty wing routes including `/works/hackathons`, and draft content files for the seven launch paintings. What it does not unblock: the 24H, Raspberry Cloud, and Astre entries, the visual spec, or the domain.
 
 ### 11.2 ASCII hands pipeline
 
@@ -234,7 +251,7 @@ Timings assume part-time work alongside studies; adjust freely, but keep the ord
 | **M1: Museum shell** (about 1 week) | Nav, wing pages, painting card component, painting detail template, plaque styling | Two real paintings render end to end from content files (F-13 to F-16) |
 | **M2: Genesis intro** (about 1 week) | ASCII hands asset, reveal animation, apple appears, skip, reduced-motion path | F-1 to F-6 pass on desktop and phone; fallback decision made |
 | **M3: The apple** (about 1 week) | Persistent apple, radial menu, random painting, bite-on-scroll | F-7 to F-12 pass; full keyboard test passes |
-| **M4: Content** (about 1 to 2 weeks, in parallel from M1) | All 6 to 9 paintings, hackathons strip, Workshop, Journey, Contact, résumé PDF | Content inventory (section 10) fully filled; no placeholder text anywhere |
+| **M4: Content** (about 1 to 2 weeks, in parallel from M1) | All launch paintings, Hackathons wing, Workshop, Journey, Contact, résumé PDF | Content inventory (section 10) fully filled; no placeholder text anywhere |
 | **M5: Polish and launch** (about 1 week) | Performance, accessibility, SEO, Open Graph image, cross-browser pass, custom domain | All non-functional targets in section 8 met; launch checklist (section 14) complete |
 | **M6 (post-launch)** | Backlog items: easter eggs, ASCII cursor, live ML demo via WebAssembly | Each added as its own mini-project |
 
@@ -287,15 +304,74 @@ Timings assume part-time work alongside studies; adjust freely, but keep the ord
 | Apple: radial menu with Random painting, plus bite-as-you-scroll | Decided |
 | ML flagship is a static case study at launch; live demo is v2 | Decided |
 | ASCII cursor and easter eggs | Parked for after v1 |
-| Hackathons: strip vs full wing | Open (default: strip) |
-| Tone of voice: serious-elegant vs with dry wit | Open |
-| Brand line | Open |
-| Stack: Astro (recommended) vs plain Vite | Open |
-| Domain name | Open |
+| Hackathons are a wing at `/works/hackathons`, same card and detail pattern as the other wings | Decided, 24 Nov 2026 |
+| Tone of voice: serious-elegant | Decided, 24 Nov 2026 |
+| Brand line: "Knowledge, compiled." | Decided, 24 Nov 2026 |
+| Stack: Astro static, TypeScript islands, plain CSS, Cloudflare Pages | Decided, 24 Nov 2026 |
+| Domain name | Open until M5 |
+| Launch paintings are the seven in section 10; 24H, Raspberry Cloud, and Astre stay off until Adam supplies public facts | Decided, 24 Nov 2026 |
 
 ## 17. Immediate next steps
 
-1. Adam confirms the open decisions above (or accepts the defaults).
-2. Adam shares the list of GitHub repositories worth considering, plus the two hackathon names and outcomes.
-3. Design lead delivers the **intro storyboard** (frame by frame, with timings and the skip behavior) and the **visual spec** (final palette, type scale, painting card layout, plaque style).
-4. Start M0 once both are approved.
+1. Build in the order of section 18. One milestone at a time.
+2. The open content cells (NetSentinel's named decision, flight-logger wording, the AGIR 79.47% quote) are filled during M4. They do not block M0.
+
+## 18. Build sequence
+
+Each step is one sitting. Finish the milestone's check before the next milestone starts. Paths below assume the Astro project lives at the repo root, beside this scope file.
+
+### M0 — Foundations
+
+1. Scaffold Astro at the repo root: static output, TypeScript strict, no UI framework. Keep this scope file where it is.
+2. Add `src/styles/tokens.css` with `--bg`, `--surface`, `--text`, `--gold`, `--apple`, and a type scale (plaque, title, body).
+3. Download and self-host EB Garamond and JetBrains Mono. `@font-face` in `src/styles/fonts.css`, with Georgia and ui-monospace as fallbacks.
+4. Add `src/layouts/Base.astro`: warm-black page, parchment text, a skip-to-content link, and an empty `<slot />`.
+5. Add one placeholder page at `/` that prints the brand line "Knowledge, compiled." and a row of token swatches.
+6. Add empty pages for `/works/systems`, `/works/ml`, `/works/web`, `/works/aerospace`, `/works/hackathons`, `/workshop`, `/journey`, `/contact`. Each page has a real `<h1>` and is linked from a plain `<nav>` in the layout.
+7. Add `public/favicon.svg`: a small apple shape in `--apple`, on `--bg`.
+8. Add a GitHub Actions workflow that runs `npm ci` and `npm run build`.
+9. **Check.** `npm run build` succeeds. Every route is a real HTML file. The home page shows the palette and both fonts. The nav works with JavaScript disabled.
+
+### M1 — Museum shell
+
+10. Define the paintings content collection. Zod schema matches section 9, with `wing` limited to `systems | ml | web | aerospace | hackathons`.
+11. Write two content files from section 10: `cloudbox` and `langbook`. Body is the short case study (problem, decision, result), not the whole README.
+12. Build `PaintingCard.astro`: frame, title, year, problem line, stack tags, plaque. Tags use JetBrains Mono. Red is only the hover or current state.
+13. Wing pages list cards for that wing by reading the collection. An empty wing says the room is not hung yet, in the site's voice, and still renders.
+14. Build `src/pages/works/[wing]/[slug].astro`: problem, decision, result, diagram if present, repo and demo links, previous and next within the same wing.
+15. **Check.** Both paintings render as a card and as a detail page. Adding a third file makes it appear with no other code change. View source contains the text with JavaScript disabled.
+
+### M2 — Genesis intro
+
+16. Write the storyboard in `docs/intro-storyboard.md`: frames, timings, 6-second cap, Skip, Escape, reduced motion, once per session.
+17. Draw a two-hand silhouette (original drawing, not a photo of the fresco). Commit it under `assets/intro/hands.png`.
+18. Add `scripts/ascii-hands.py`: fixed grid, about 120 by 40, density ramp, output `src/assets/intro/hands.txt` and `reveal.json` (character order by distance from each hand's center).
+19. Add `Genesis.astro` plus a small client script: reveal characters in a `<pre aria-hidden="true">`, with a text alternative beside it. Place the apple SVG in the gap. Then show the hero.
+20. Skip button and Escape jump to the hero immediately. `sessionStorage` records that the intro played. `prefers-reduced-motion` shows the final frame only.
+21. **Check.** F-1 through F-6 on a desktop window and a 360 px viewport. If the ASCII looks muddy, ship the static frame with a fade and record that choice in section 16.
+
+### M3 — The apple
+
+22. Persistent apple SVG, fixed, present on every page after the intro. Six bite masks as `<symbol>` variants.
+23. Scroll progress swaps the mask. At the last stage, the control is the core, and activating it scrolls to the top.
+24. Click or Enter opens the menu: Tour the museum, Résumé, GitHub, Contact, Random painting. Items are real `<a>` elements. Random painting uses a build-time list and excludes the current slug.
+25. Keyboard: Tab to the apple, arrows move inside the menu, Escape closes it. Below 720 px the apple sits in a corner and the menu is a bottom sheet.
+26. **Check.** F-7 through F-12. Complete the keyboard path without a mouse. Confirm the apple does not cover the nav or a plaque.
+
+### M4 — The rest of the rooms
+
+27. Add the other five paintings: `ml-nn`, `netsentinel`, `flight-data-logger`, `project-blue`, `agir`. One file each, copy from section 10. One SVG diagram each, even if it is a single labeled figure.
+28. Workshop page: four groups (systems, ML, web, aerospace), each an inline SVG diagram of the tools, with the same words as text for screen readers.
+29. Journey page: five plaques in order — INSA Toulouse, Pole Star, 24H de Toulouse, Astre Club, HKU exchange. Dates from the profile README.
+30. Contact page: `mailto`, GitHub `https://github.com/kha-adam`, LinkedIn, and a résumé PDF in `public/`. No form.
+31. Add "Replay intro" to the apple menu. It clears the session flag and returns to `/`.
+32. **Check.** No placeholder sentences remain. Every painting has problem, decision, result, and a diagram. Hackathons lists Project BLUE first, then AGIR.
+
+### M5 — Launch
+
+33. Per-page `<title>` and meta description. One Open Graph image of the apple. `sitemap`, `robots.txt`.
+34. Run Lighthouse mobile against the preview. Fix until Performance is 95 or higher, Accessibility 100, Best Practices 95 or higher, SEO 100. Keep the built client JavaScript under 100 KB gzipped.
+35. Pass the keyboard and no-JavaScript walks again. Check 360 px and a wide desktop. No horizontal scroll.
+36. Write the README: what the museum is, how to add a painting (one file, optional SVG), how to build.
+37. Point the domain at Cloudflare Pages when the name is chosen. HTTPS comes with it.
+38. **Check.** Section 14 is complete. Tag the release.

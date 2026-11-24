@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import EmptyRoom from '../../components/EmptyRoom.astro';
+import PaintingCard from '../../components/PaintingCard.astro';
+import Base from '../../layouts/Base.astro';
+import { wings } from '../../data/wings';
+import { sortPaintings } from '../../lib/paintings';
+
+export async function getStaticPaths() {
+	return wings.map((wing) => ({
+		params: { wing: wing.id },
+		props: { wing },
+	}));
+}
+
+const { wing } = Astro.props;
+const paintings = sortPaintings(await getCollection('paintings', (entry) => entry.data.wing === wing.id));
+---
+
+<Base title={wing.title} description={`${wing.title}. Paintings in the museum of Adam Khalloufi's work.`}>
+	{
+		paintings.length === 0 ? (
+			<EmptyRoom kicker="Wing" title={wing.title} />
+		) : (
+			<>
+				<p class="kicker">Wing</p>
+				<h1>{wing.title}</h1>
+				<ul class="gallery">
+					{paintings.map((painting) => (
+						<li>
+							<PaintingCard painting={painting} />
+						</li>
+					))}
+				</ul>
+			</>
+		)
+	}
+</Base>

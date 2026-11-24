@@ -1,0 +1,22 @@
+---
+import { paintingHref, plaqueCaption, type Painting } from '../lib/paintings';
+
+interface Props {
+	painting: Painting;
+}
+
+const { painting } = Astro.props;
+const { title, year, problem, stack } = painting.data;
+---
+
+<article class="painting">
+	<a href={paintingHref(painting)}>
+		<p class="kicker">{year}</p>
+		<h2>{title}</h2>
+		<p class="problem">{problem}</p>
+		<ul class="tags">
+			{stack.map((tag) => <li>{tag}</li>)}
+		</ul>
+		<p class="plaque">{plaqueCaption(painting)}</p>
+	</a>
+</article>

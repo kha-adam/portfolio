@@ -1,5 +1,10 @@
 ---
+import { getCollection } from 'astro:content';
+import PaintingCard from '../components/PaintingCard.astro';
 import Base from '../layouts/Base.astro';
+import { sortPaintings } from '../lib/paintings';
+
+const hanging = sortPaintings(await getCollection('paintings')).filter((painting) => painting.data.featured);
 
 const swatches = [
 	{ name: '--bg', hex: '#0b0908', className: 'chip-bg' },
@@ -13,7 +18,17 @@ const swatches = [
 <Base title="Knowledge, compiled." description="Knowledge, compiled. A museum of Adam Khalloufi's work.">
 	<p class="kicker">Entrance hall</p>
 	<h1>Knowledge, compiled.</h1>
-	<p class="lede">The rooms are framed. The paintings come next.</p>
+	<p class="lede">Two paintings are hung. The other rooms are still empty.</p>
+	<section class="hanging" aria-labelledby="hanging-title">
+		<h2 id="hanging-title" class="kicker">Now hanging</h2>
+		<ul class="gallery">
+			{hanging.map((painting) => (
+				<li>
+					<PaintingCard painting={painting} />
+				</li>
+			))}
+		</ul>
+	</section>
 	<ul class="swatches">
 		{
 			swatches.map((swatch) => (

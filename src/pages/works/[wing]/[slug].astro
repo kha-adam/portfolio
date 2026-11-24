@@ -1,0 +1,81 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import { wingTitle } from '../../../data/wings';
+import { neighbors, paintingHref, plaqueCaption, type Painting } from '../../../lib/paintings';
+
+export async function getStaticPaths() {
+	const paintings = await getCollection('paintings');
+	return paintings.map((painting) => ({
+		params: { wing: painting.data.wing, slug: painting.data.slug },
+		props: { painting },
+	}));
+}
+
+interface Props {
+	painting: Painting;
+}
+
+const { painting } = Astro.props;
+const { title, year, problem, decision, result, links, diagram, status } = painting.data;
+const { Content } = await render(painting);
+const all = await getCollection('paintings');
+const { previous, next } = neighbors(all, painting);
+const statusLabel = { shipped: 'Shipped', 'in-progress': 'In progress', prototype: 'Prototype' }[status];
+---
+
+<Base title={title} description={`${title}, ${year}. ${problem}`}>
+	<p class="kicker">{wingTitle(painting.data.wing)} · {year} · {statusLabel}</p>
+	<h1>{title}</h1>
+	<p class="plaque stand">{plaqueCaption(painting)}</p>
+	<dl class="facts">
+		<div>
+			<dt>Problem</dt>
+			<dd>{problem}</dd>
+		</div>
+		<div>
+			<dt>Decision</dt>
+			<dd>{decision}</dd>
+		</div>
+		<div>
+			<dt>Result</dt>
+			<dd>{result}</dd>
+		</div>
+	</dl>
+	{
+		diagram && (
+			<figure class="diagram">
+				<img src={diagram} alt={`Diagram of ${title}`} />
+			</figure>
+		)
+	}
+	<div class="case">
+		<Content />
+	</div>
+	<ul class="sources">
+		<li><a href={links.repo}>Repository</a></li>
+		{links.demo && (
+			<li>
+				<a href={links.demo}>Demo</a>
+			</li>
+		)}
+	</ul>
+	{
+		(previous || next) && (
+			<nav class="neighbors" aria-label="Adjacent paintings">
+				{previous && (
+					<a href={paintingHref(previous)}>
+						<span class="token">Previous</span>
+						{previous.data.title}
+					</a>
+				)}
+				{next && (
+					<a href={paintingHref(next)}>
+						<span class="token">Next</span>
+						{next.data.title}
+					</a>
+				)}
+			</nav>
+		)
+	}
+</Base>

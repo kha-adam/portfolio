@@ -1,6 +1,6 @@
 # Knowledge, compiled.
 
-Museum portfolio for Adam Khalloufi. This checkpoint is the foundation: palette, type, and an empty page for every room.
+Museum portfolio for Adam Khalloufi. Paintings are Markdown files in `src/content/paintings`. One file is enough to hang a new work: the wing page and the detail page are generated from it.
 
 ```bash
 npm install

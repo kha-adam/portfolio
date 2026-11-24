@@ -1,0 +1,184 @@
+.gallery {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+	gap: 1rem;
+	margin: 2.5rem 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.painting {
+	height: 100%;
+	background: var(--surface);
+	border: 1px solid color-mix(in srgb, var(--gold) 50%, transparent);
+}
+
+.painting a {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	padding: 1.25rem 1.25rem 1.1rem;
+	color: inherit;
+	text-decoration: none;
+}
+
+.painting h2 {
+	margin: 0.35rem 0 0;
+	max-width: none;
+	font-size: clamp(1.85rem, 3vw, 2.5rem);
+	font-weight: 500;
+	letter-spacing: -0.02em;
+	line-height: 1.05;
+}
+
+.problem {
+	margin: 0.9rem 0 0;
+	font-size: 1.15rem;
+}
+
+.tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem 0.75rem;
+	margin: 1.1rem 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.tags li {
+	color: var(--gold);
+	font-family: var(--font-mono);
+	font-size: 0.72rem;
+	letter-spacing: 0.04em;
+}
+
+.plaque {
+	margin: 1.25rem 0 0;
+	color: var(--gold);
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	letter-spacing: 0.02em;
+	line-height: 1.45;
+}
+
+.painting .plaque {
+	margin-top: auto;
+	padding-top: 1.25rem;
+}
+
+.painting:hover,
+.painting:focus-within {
+	border-color: var(--apple);
+}
+
+.painting:hover h2,
+.painting:focus-within h2 {
+	color: var(--apple);
+}
+
+.painting a:focus-visible {
+	outline: 1px solid var(--gold);
+	outline-offset: -3px;
+}
+
+.plaque.stand {
+	max-width: var(--measure);
+	margin-top: 1.25rem;
+}
+
+.facts {
+	display: grid;
+	gap: 1.35rem;
+	margin: 2.25rem 0 0;
+	padding: 0;
+}
+
+.facts div {
+	max-width: var(--measure);
+}
+
+.facts dt {
+	color: var(--gold);
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+}
+
+.facts dd {
+	margin: 0.35rem 0 0;
+}
+
+.diagram {
+	margin: 2rem 0 0;
+}
+
+.diagram img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+.case {
+	max-width: var(--measure);
+	margin-top: 2rem;
+}
+
+.case p {
+	margin: 0;
+}
+
+.sources {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem 1.5rem;
+	margin: 2rem 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.sources a,
+.neighbors a {
+	color: var(--gold);
+}
+
+.sources a:hover,
+.neighbors a:hover,
+.sources a:focus-visible,
+.neighbors a:focus-visible {
+	color: var(--apple);
+}
+
+.neighbors {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+	gap: 1rem;
+	margin-top: 3rem;
+	padding-top: 1.25rem;
+	border-top: 1px solid color-mix(in srgb, var(--gold) 40%, transparent);
+}
+
+.neighbors a {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	font-size: 1.35rem;
+	text-decoration: none;
+}
+
+.neighbors a:last-child:not(:first-child) {
+	text-align: right;
+	align-items: flex-end;
+}
+
+.hanging {
+	margin-top: 3.5rem;
+}
+
+.hanging .kicker {
+	margin-bottom: 0;
+}
+
+.hanging .gallery {
+	margin-top: 1rem;
+}

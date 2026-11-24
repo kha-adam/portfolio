@@ -14,5 +14,6 @@ export type Room = (typeof rooms)[number];
 
 export function isCurrent(pathname: string, href: string) {
 	const path = pathname.length > 1 && pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
-	return path === href;
+	if (href === '/') return path === '/';
+	return path === href || path.startsWith(`${href}/`);
 }
